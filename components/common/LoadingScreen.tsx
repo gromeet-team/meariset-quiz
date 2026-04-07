@@ -18,7 +18,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [textIndex, setTextIndex] = useState(0);
 
   useEffect(() => {
-    const duration = 3000;
+    const duration = 1500;
     const interval = 30;
     const step = 100 / (duration / interval);
 
@@ -38,8 +38,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   }, [onComplete]);
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setTextIndex(1), 1000);
-    const timer2 = setTimeout(() => setTextIndex(2), 2000);
+    const timer1 = setTimeout(() => setTextIndex(1), 500);
+    const timer2 = setTimeout(() => setTextIndex(2), 1000);
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);

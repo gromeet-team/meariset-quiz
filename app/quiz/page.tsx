@@ -23,14 +23,10 @@ export default function QuizPage() {
   const [answers, setAnswers] = useState<number[]>([]);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [trackedStart, setTrackedStart] = useState(false);
 
   useEffect(() => {
-    if (!trackedStart) {
-      trackQuizStart();
-      setTrackedStart(true);
-    }
-  }, [trackedStart]);
+    trackQuizStart();
+  }, []);
 
   const currentQuestion = questions[currentIndex];
 
@@ -120,7 +116,10 @@ export default function QuizPage() {
         <AnimatePresence mode="wait">
           <div key={currentIndex}>
             {currentQuestion.type === 'slider' && (
-              <SliderQuestion onAnswer={handleAnswer} />
+              <SliderQuestion
+                question={currentQuestion.question}
+                onAnswer={handleAnswer}
+              />
             )}
             {currentQuestion.type === 'image-select' && (
               <ImageSelectQuestion
@@ -137,10 +136,15 @@ export default function QuizPage() {
               />
             )}
             {currentQuestion.type === 'drag-sort' && (
-              <DragSortQuestion onAnswer={handleAnswer} />
+              <DragSortQuestion
+                question={currentQuestion.question}
+                options={currentQuestion.options || []}
+                onAnswer={handleAnswer}
+              />
             )}
             {currentQuestion.type === 'chat' && (
               <ChatQuestion
+                question={currentQuestion.question}
                 options={currentQuestion.options || []}
                 onAnswer={handleAnswer}
               />
@@ -153,7 +157,10 @@ export default function QuizPage() {
               />
             )}
             {currentQuestion.type === 'button-mash' && (
-              <ButtonMashQuestion onAnswer={handleAnswer} />
+              <ButtonMashQuestion
+                question={currentQuestion.question}
+                onAnswer={handleAnswer}
+              />
             )}
           </div>
         </AnimatePresence>

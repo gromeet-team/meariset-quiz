@@ -5,10 +5,11 @@ import { motion } from 'framer-motion';
 import { getButtonMashScore } from '@/lib/scoring';
 
 interface ButtonMashQuestionProps {
+  question: string;
   onAnswer: (score: number) => void;
 }
 
-export default function ButtonMashQuestion({ onAnswer }: ButtonMashQuestionProps) {
+export default function ButtonMashQuestion({ question, onAnswer }: ButtonMashQuestionProps) {
   const [count, setCount] = useState(0);
   const [timeLeft, setTimeLeft] = useState(3);
   const [started, setStarted] = useState(false);
@@ -25,8 +26,8 @@ export default function ButtonMashQuestion({ onAnswer }: ButtonMashQuestionProps
     if (!started || finished) return;
 
     if (timeLeft <= 0) {
-      handleFinish();
-      return;
+      const timeout = setTimeout(handleFinish, 0);
+      return () => clearTimeout(timeout);
     }
 
     const timer = setTimeout(() => {
@@ -51,7 +52,7 @@ export default function ButtonMashQuestion({ onAnswer }: ButtonMashQuestionProps
       className="space-y-6"
     >
       <h2 className="text-xl font-bold text-white text-center leading-relaxed">
-        &lsquo;내일부터 진짜 한다&rsquo;<br />버튼을 눌러보세요
+        {question}
       </h2>
 
       <p className="text-center text-gray-500 text-sm">
@@ -78,10 +79,10 @@ export default function ButtonMashQuestion({ onAnswer }: ButtonMashQuestionProps
       {/* Big button */}
       <div className="flex justify-center">
         <motion.button
-          whileTap={!finished ? { scale: 0.9, rotate: Math.random() * 10 - 5 } : {}}
+          whileTap={!finished ? { scale: 0.9, rotate: -4 } : {}}
           animate={
             count > 0 && !finished
-              ? { x: [0, Math.random() * 4 - 2, 0] }
+              ? { x: [0, 2, -2, 0] }
               : {}
           }
           onClick={handlePress}

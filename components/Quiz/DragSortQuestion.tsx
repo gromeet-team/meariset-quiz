@@ -1,23 +1,26 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-
-const initialItems = [
-  { id: 'exercise', text: '운동', emoji: '🏋️' },
-  { id: 'netflix', text: '넷플릭스', emoji: '📺' },
-  { id: 'chicken', text: '치킨', emoji: '🍗' },
-  { id: 'sleep', text: '숙면', emoji: '😴' },
-];
+import type { Question } from '@/data/questions';
 
 interface DragSortQuestionProps {
+  question: string;
+  options: NonNullable<Question['options']>;
   onAnswer: (score: number) => void;
 }
 
-export default function DragSortQuestion({ onAnswer }: DragSortQuestionProps) {
-  const [items, setItems] = useState(initialItems);
+export default function DragSortQuestion({ question, options, onAnswer }: DragSortQuestionProps) {
+  const [items, setItems] = useState(() =>
+    options.map((option, index) => ({
+      id: `${index}-${option.text}`,
+      text: option.text,
+      emoji: option.emoji ?? '',
+    }))
+  );
   const [confirmed, setConfirmed] = useState(false);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [touchDragIdx, setTouchDragIdx] = useState<number | null>(null);
   const dragItem = useRef<number | null>(null);
   const dragOverItem = useRef<number | null>(null);
 
@@ -44,8 +47,6 @@ export default function DragSortQuestion({ onAnswer }: DragSortQuestionProps) {
   };
 
   // Touch handling for mobile
-  const [touchDragIdx, setTouchDragIdx] = useState<number | null>(null);
-
   const moveItem = (from: number, to: number) => {
     if (to < 0 || to >= items.length) return;
     const newItems = [...items];
@@ -59,8 +60,8 @@ export default function DragSortQuestion({ onAnswer }: DragSortQuestionProps) {
   const handleConfirm = () => {
     if (confirmed) return;
     setConfirmed(true);
-    const exercisePos = items.findIndex((item) => item.id === 'exercise');
-    const score = exercisePos + 1;
+    const primaryItemId = `${0}-${options[0]?.text ?? ''}`;
+    const score = items.findIndex((item) => item.id === primaryItemId) + 1;
     onAnswer(score);
   };
 
@@ -72,7 +73,7 @@ export default function DragSortQuestion({ onAnswer }: DragSortQuestionProps) {
       className="space-y-6"
     >
       <h2 className="text-xl font-bold text-white text-center leading-relaxed">
-        지금 당장 하고 싶은<br />순서대로 배치!
+        {question}
       </h2>
 
       <p className="text-center text-gray-500 text-xs">

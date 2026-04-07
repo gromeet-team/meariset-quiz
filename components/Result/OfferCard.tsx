@@ -34,12 +34,18 @@ export default function OfferCard({ result }: OfferCardProps) {
         </p>
       </div>
 
+      <div className="rounded-2xl bg-black/20 px-4 py-3">
+        <p className="text-xs leading-relaxed text-gray-300">
+          {result.offerFit}
+        </p>
+      </div>
+
       <button
         onClick={handleClick}
         className="w-full py-4 rounded-2xl font-bold text-lg transition-all active:scale-95"
         style={{ backgroundColor: result.color, color: '#fff' }}
       >
-        지금 시작하기 →
+        {result.ctaLabel}
       </button>
     </motion.div>
   );

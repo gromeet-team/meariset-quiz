@@ -73,7 +73,7 @@ export const questions: Question[] = [
   {
     id: 5,
     type: 'chat',
-    question: '',
+    question: '내일 아침 6시에 운동 같이 갈래?',
     options: [
       { text: '👻 (읽씹)', score: 4 },
       { text: 'ㅋㅋ 생각해볼게~', score: 3 },

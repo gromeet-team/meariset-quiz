@@ -1,9 +1,11 @@
 'use client';
 
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { resultTypes } from '@/data/results';
+import { trackRetryQuiz } from '@/lib/pixel';
 import TypeCard from '@/components/Result/TypeCard';
 import OfferCard from '@/components/Result/OfferCard';
 import MiniChallenge from '@/components/Result/MiniChallenge';
@@ -37,15 +39,6 @@ function ResultContent() {
             {result.science}
           </p>
         </div>
-
-        {/* Percentage */}
-        <div className="text-center py-3">
-          <p className="text-gray-500 text-xs">
-            전체 참여자 중{' '}
-            <span className="text-white font-bold">{result.percentage}%</span>
-            가 당신과 같은 유형
-          </p>
-        </div>
       </motion.div>
 
       {/* Mini Challenge */}
@@ -59,12 +52,13 @@ function ResultContent() {
 
       {/* Retry */}
       <div className="text-center pt-4 pb-8">
-        <a
+        <Link
           href="/"
+          onClick={() => trackRetryQuiz(result.id)}
           className="text-gray-500 text-sm hover:text-white transition-colors underline underline-offset-4"
         >
-          다시 테스트하기
-        </a>
+          테스트 다시 하고 친구 결과랑 비교하기
+        </Link>
       </div>
     </div>
   );

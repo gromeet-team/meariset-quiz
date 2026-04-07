@@ -9,11 +9,12 @@ interface Option {
 }
 
 interface ChatQuestionProps {
+  question: string;
   options: Option[];
   onAnswer: (score: number) => void;
 }
 
-export default function ChatQuestion({ options, onAnswer }: ChatQuestionProps) {
+export default function ChatQuestion({ question, options, onAnswer }: ChatQuestionProps) {
   const [showMessage, setShowMessage] = useState(false);
   const [showTyping, setShowTyping] = useState(true);
   const [showOptions, setShowOptions] = useState(false);
@@ -23,8 +24,8 @@ export default function ChatQuestion({ options, onAnswer }: ChatQuestionProps) {
     const timer1 = setTimeout(() => {
       setShowTyping(false);
       setShowMessage(true);
-    }, 1500);
-    const timer2 = setTimeout(() => setShowOptions(true), 2200);
+    }, 700);
+    const timer2 = setTimeout(() => setShowOptions(true), 1100);
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
@@ -88,9 +89,7 @@ export default function ChatQuestion({ options, onAnswer }: ChatQuestionProps) {
               className="flex items-end gap-2"
             >
               <div className="bg-gray-700 rounded-2xl rounded-bl-md px-4 py-3 max-w-[80%]">
-                <p className="text-white text-sm">
-                  내일 아침 6시에 운동 같이 갈래?
-                </p>
+                <p className="text-white text-sm">{question}</p>
               </div>
               <span className="text-gray-600 text-xs">오후 11:42</span>
             </motion.div>

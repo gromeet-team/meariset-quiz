@@ -1,21 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   const router = useRouter();
-  const [participantCount, setParticipantCount] = useState(0);
-
-  useEffect(() => {
-    const count = parseInt(localStorage.getItem('meariset_count') || '0', 10);
-    setParticipantCount(count);
-  }, []);
 
   const handleStart = () => {
-    const newCount = participantCount + 1;
-    localStorage.setItem('meariset_count', String(newCount));
     router.push('/quiz');
   };
 
@@ -71,17 +62,6 @@ export default function Home() {
         >
           시작하기
         </motion.button>
-
-        {/* Participant counter */}
-        {participantCount > 0 && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-gray-600 text-xs"
-          >
-            지금까지 {participantCount.toLocaleString()}명이 참여했어요
-          </motion.p>
-        )}
 
         {/* Brand */}
         <p className="text-gray-700 text-xs">

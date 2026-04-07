@@ -31,6 +31,15 @@ export default function TypeCard({ result }: TypeCardProps) {
 
       <h2 className="text-2xl font-bold text-white mb-2">{result.name}</h2>
       <p className="text-gray-400 text-sm">{result.description}</p>
+
+      <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-left">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
+          Meariset Fit
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-gray-200">
+          {result.bridge}
+        </p>
+      </div>
     </motion.div>
   );
 }

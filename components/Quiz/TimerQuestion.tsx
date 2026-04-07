@@ -17,6 +17,7 @@ interface TimerQuestionProps {
 }
 
 export default function TimerQuestion({
+  question,
   options,
   onAnswer,
 }: TimerQuestionProps) {
@@ -35,8 +36,8 @@ export default function TimerQuestion({
     if (selected !== null || expired) return;
 
     if (timeLeft <= 0) {
-      handleTimeout();
-      return;
+      const timeout = setTimeout(handleTimeout, 0);
+      return () => clearTimeout(timeout);
     }
 
     const timer = setTimeout(() => {
@@ -62,7 +63,7 @@ export default function TimerQuestion({
       className="space-y-6"
     >
       <h2 className="text-xl font-bold text-white text-center leading-relaxed">
-        10초 안에 골라!<br />넷플릭스 한 편만 더 볼까?
+        {question}
       </h2>
 
       {/* Timer Circle */}
