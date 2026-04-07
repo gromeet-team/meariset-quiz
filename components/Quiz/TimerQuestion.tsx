@@ -28,7 +28,7 @@ export default function TimerQuestion({
   const handleTimeout = useCallback(() => {
     if (selected === null && !expired) {
       setExpired(true);
-      onAnswer(4); // auto 4 points on timeout, feedback key=0
+      onAnswer(4);
     }
   }, [selected, expired, onAnswer]);
 
@@ -66,7 +66,6 @@ export default function TimerQuestion({
         {question}
       </h2>
 
-      {/* Timer Circle */}
       <div className="flex justify-center">
         <motion.div
           animate={timeLeft <= 3 ? { scale: [1, 1.1, 1] } : {}}
@@ -89,7 +88,7 @@ export default function TimerQuestion({
           animate={{ opacity: 1 }}
           className="text-center text-yellow-400 text-sm"
         >
-          시간 초과! 자동으로 최고점 부여 😂
+          시간 끝! 망설임도 패턴이라 그대로 반영했어요.
         </motion.p>
       )}
 

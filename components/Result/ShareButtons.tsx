@@ -27,10 +27,9 @@ export default function ShareButtons({ result }: ShareButtonsProps) {
       setCopied(true);
       trackResultShare('copy_link', result.id);
       trackCopyLink(result.id);
-      flashStatus('링크 복사 완료. 친구한테 바로 붙여넣으면 됩니다.');
+      flashStatus('링크 복사 완료. 단톡방에 던지면 바로 유형 비교가 시작돼요.');
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // fallback
       const textarea = document.createElement('textarea');
       textarea.value = shareUrl;
       document.body.appendChild(textarea);
@@ -40,7 +39,7 @@ export default function ShareButtons({ result }: ShareButtonsProps) {
       setCopied(true);
       trackResultShare('copy_link', result.id);
       trackCopyLink(result.id);
-      flashStatus('링크 복사 완료. 복사가 안 보이면 길게 눌러 다시 확인해 주세요.');
+      flashStatus('링크 복사 완료. 복사가 안 보이면 길게 눌러 한 번 더 확인해 주세요.');
       setTimeout(() => setCopied(false), 2000);
     }
   }, [flashStatus, result.id, shareUrl]);
@@ -61,25 +60,25 @@ export default function ShareButtons({ result }: ShareButtonsProps) {
       link.click();
       trackResultShare('save_image', result.id);
       trackSaveImage(result.id);
-      flashStatus('스토리 올리기 좋은 이미지로 저장했어요.');
+      flashStatus('결과 카드 저장 완료. 스토리나 카톡 공유용으로 쓰기 좋아요.');
     } catch (err) {
       console.error('Failed to save image:', err);
-      flashStatus('이미지 저장에 실패했어요. 링크 복사로 공유해 주세요.');
+      flashStatus('이미지 저장에 실패했어요. 링크 복사로 바로 공유해 주세요.');
     }
   }, [flashStatus, result.id]);
 
   const handleKakaoShare = useCallback(() => {
-    flashStatus('카카오 공유는 준비 중이에요. 아래 링크 복사로 바로 공유할 수 있어요.');
+    flashStatus('카카오 공유는 준비 중이에요. 지금은 링크 복사가 제일 빨라요.');
   }, [flashStatus]);
 
   return (
     <div className="space-y-4">
       <div className="space-y-1 text-center">
         <p className="text-sm font-semibold text-white">
-          친구한테 보내서 뭐 나오는지 같이 보세요
+          친구 결과랑 같이 보면 더 잘 보여요
         </p>
         <p className="text-xs text-gray-500">
-          링크 복사나 이미지 저장으로 바로 공유할 수 있어요.
+          같은 테스트인데 결과가 은근 다르게 나와서 공유 반응이 좋아요.
         </p>
       </div>
 
@@ -104,7 +103,7 @@ export default function ShareButtons({ result }: ShareButtonsProps) {
         >
           <span className="text-xl">{copied ? '✅' : '🔗'}</span>
           <span className="text-[10px] text-gray-300 font-medium">
-            {copied ? '복사 완료' : '친구에게 링크'}
+            {copied ? '복사 완료' : '링크 복사'}
           </span>
         </button>
 
@@ -113,7 +112,7 @@ export default function ShareButtons({ result }: ShareButtonsProps) {
           className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gray-800 hover:bg-gray-700 transition-all active:scale-95"
         >
           <span className="text-xl">📸</span>
-          <span className="text-[10px] text-gray-300 font-medium">스토리용 저장</span>
+          <span className="text-[10px] text-gray-300 font-medium">결과 카드 저장</span>
         </button>
       </div>
     </div>

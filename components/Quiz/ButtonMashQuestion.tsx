@@ -57,13 +57,12 @@ export default function ButtonMashQuestion({ question, onAnswer }: ButtonMashQue
 
       <p className="text-center text-gray-500 text-sm">
         {!started
-          ? '버튼을 누르면 3초 타이머 시작!'
+          ? '누르는 순간 3초 시작. 결심 과열도 결과에 반영됩니다.'
           : finished
-          ? '시간 종료!'
+          ? '체크 완료!'
           : `남은 시간: ${timeLeft}초`}
       </p>
 
-      {/* Counter */}
       <div className="text-center">
         <motion.span
           key={count}
@@ -76,19 +75,14 @@ export default function ButtonMashQuestion({ question, onAnswer }: ButtonMashQue
         <p className="text-gray-500 text-sm mt-1">회</p>
       </div>
 
-      {/* Big button */}
       <div className="flex justify-center">
         <motion.button
           whileTap={!finished ? { scale: 0.9, rotate: -4 } : {}}
-          animate={
-            count > 0 && !finished
-              ? { x: [0, 2, -2, 0] }
-              : {}
-          }
+          animate={count > 0 && !finished ? { x: [0, 2, -2, 0] } : {}}
           onClick={handlePress}
           disabled={finished}
           className={`
-            w-40 h-40 rounded-full text-2xl font-bold shadow-2xl transition-all
+            w-40 h-40 rounded-full text-2xl font-bold shadow-2xl transition-all whitespace-pre-line
             ${
               finished
                 ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
@@ -103,7 +97,7 @@ export default function ButtonMashQuestion({ question, onAnswer }: ButtonMashQue
               : {}
           }
         >
-          {finished ? '끝!' : '내일부터\n진짜 한다'}
+          {finished ? '끝!' : '이번엔\n진짜 간다'}
         </motion.button>
       </div>
     </motion.div>

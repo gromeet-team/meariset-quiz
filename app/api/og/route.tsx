@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
               {data.name}
             </div>
             <div style={{ fontSize: 20, color: '#888', display: 'flex' }}>
-              나의 의지박약 레벨 테스트 | 메아리셋
+              의지보다 구조가 필요한 실행 패턴 테스트
             </div>
           </>
         ) : (
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
               나의 의지박약 레벨 테스트
             </div>
             <div style={{ fontSize: 24, color: '#888', display: 'flex' }}>
-              뇌과학이 밝힌 당신의 실행력 유형은?
+              알람·미루기·기록 습관으로 보는 내 실행 패턴
             </div>
             <div style={{ fontSize: 18, color: '#555', marginTop: 20, display: 'flex' }}>
               by 메아리셋

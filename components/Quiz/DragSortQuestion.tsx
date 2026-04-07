@@ -46,7 +46,6 @@ export default function DragSortQuestion({ question, options, onAnswer }: DragSo
     setDragIndex(null);
   };
 
-  // Touch handling for mobile
   const moveItem = (from: number, to: number) => {
     if (to < 0 || to >= items.length) return;
     const newItems = [...items];
@@ -77,7 +76,7 @@ export default function DragSortQuestion({ question, options, onAnswer }: DragSo
       </h2>
 
       <p className="text-center text-gray-500 text-xs">
-        드래그하거나 화살표로 순서를 바꿔보세요
+        이상적인 답 말고, 오늘의 나 기준으로 골라보세요
       </p>
 
       <div className="space-y-3">
@@ -102,7 +101,6 @@ export default function DragSortQuestion({ question, options, onAnswer }: DragSo
             <span className="text-3xl">{item.emoji}</span>
             <span className="text-white font-medium flex-1">{item.text}</span>
 
-            {/* Mobile arrows */}
             <div className="flex flex-col gap-1">
               <button
                 onClick={() => moveItem(index, index - 1)}
@@ -128,7 +126,7 @@ export default function DragSortQuestion({ question, options, onAnswer }: DragSo
         disabled={confirmed}
         className="w-full py-4 rounded-2xl font-bold text-lg transition-all active:scale-95 bg-white text-black hover:bg-gray-200 disabled:opacity-50"
       >
-        이 순서로 확정
+        이 순서가 진짜 내 마음
       </button>
     </motion.div>
   );

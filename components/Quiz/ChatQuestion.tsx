@@ -52,7 +52,7 @@ export default function ChatQuestion({ question, options, onAnswer }: ChatQuesti
           <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-sm">
             💪
           </div>
-          <span className="text-white text-sm font-medium">헬스친구</span>
+          <span className="text-white text-sm font-medium">산책 메이트</span>
         </div>
 
         {/* Typing indicator */}

@@ -22,9 +22,9 @@ export default function OfferCard({ result }: OfferCardProps) {
       className="rounded-2xl border border-gray-700 bg-gray-800/50 p-6 space-y-4"
     >
       <div className="text-center">
-        <p className="text-gray-400 text-xs mb-1">나에게 맞는 플래너</p>
+        <p className="text-gray-400 text-xs mb-1">이 유형이 편하게 시작하기 좋은 메아리셋</p>
         <h3 className="text-white text-lg font-bold">
-          메아리셋 {result.offerTitle}
+          {result.offerTitle}
         </h3>
         <p className="text-2xl font-bold mt-2" style={{ color: result.color }}>
           {result.offerPrice}
@@ -34,9 +34,12 @@ export default function OfferCard({ result }: OfferCardProps) {
         </p>
       </div>
 
-      <div className="rounded-2xl bg-black/20 px-4 py-3">
+      <div className="rounded-2xl bg-black/20 px-4 py-3 space-y-2">
         <p className="text-xs leading-relaxed text-gray-300">
           {result.offerFit}
+        </p>
+        <p className="text-[11px] leading-relaxed text-gray-500">
+          메아리셋은 잘 써야 하는 플래너보다, 다시 시작하기 쉽게 만든 플래너에 가까워요.
         </p>
       </div>
 

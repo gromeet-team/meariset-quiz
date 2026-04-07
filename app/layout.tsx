@@ -3,18 +3,19 @@ import MetaPixel from '@/components/common/MetaPixel';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://meariset-quiz.vercel.app'),
   title: '나의 의지박약 레벨 테스트 | 메아리셋',
-  description: '뇌과학이 밝힌 당신의 실행력 유형은? 7문항으로 알아보는 나의 의지박약 레벨!',
+  description: '알람·미루기·기록 습관으로 보는 당신의 실행 패턴. 결과와 함께 메아리셋 맞춤 구조까지 확인해보세요.',
   openGraph: {
     title: '나의 의지박약 레벨 테스트',
-    description: '뇌과학이 밝힌 당신의 실행력 유형은?',
+    description: '알람·미루기·기록 습관으로 보는 당신의 실행 패턴',
     images: ['/api/og'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: '나의 의지박약 레벨 테스트',
-    description: '뇌과학이 밝힌 당신의 실행력 유형은?',
+    description: '알람·미루기·기록 습관으로 보는 당신의 실행 패턴',
     images: ['/api/og'],
   },
 };

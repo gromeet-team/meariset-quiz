@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const loadingTexts = [
-  '응답 패턴 분석 중...',
-  '전두엽 활성도 측정...',
-  '의지력 지수 계산...',
+  '알람·미루기 습관 읽는 중...',
+  '흐름이 끊기는 지점 찾는 중...',
+  '메아리셋 맞춤 구조 연결 중...',
 ];
 
 interface LoadingScreenProps {

@@ -73,8 +73,8 @@ export default function SliderQuestion({ question, onAnswer }: SliderQuestionPro
 
       <div className="space-y-6 px-2">
         <div className="flex justify-between text-sm text-gray-500">
-          <span>🥀 바닥</span>
-          <span>💪 충만</span>
+          <span>🫠 거의 방전</span>
+          <span>🔥 지금은 가능</span>
         </div>
 
         <div className="relative">
@@ -104,8 +104,8 @@ export default function SliderQuestion({ question, onAnswer }: SliderQuestionPro
 
         <p className="text-center text-xs text-gray-500">
           {hasInteracted
-            ? '좋아요, 이 감각으로 바로 다음 질문으로 넘어갈게요.'
-            : '한 번만 움직이면 자동으로 다음 질문으로 넘어가요.'}
+            ? '좋아요. 그 감각 그대로 저장하고 넘어갈게요.'
+            : '밀어놓고 손 떼면 자동으로 저장돼요.'}
         </p>
       </div>
 

@@ -18,46 +18,47 @@ function ResultContent() {
 
   return (
     <div className="min-h-screen px-6 py-8 max-w-lg mx-auto space-y-6">
-      {/* Type Card */}
       <TypeCard result={result} />
 
-      {/* Detail */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
         className="space-y-4"
       >
-        <p className="text-gray-300 text-sm leading-relaxed">
-          {result.detail}
-        </p>
+        <div className="space-y-1">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
+            왜 자꾸 이렇게 되냐면
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            {result.detail}
+          </p>
+        </div>
 
-        {/* Science fact */}
         <div className="flex items-start gap-3 p-4 rounded-xl bg-gray-800/50 border border-gray-700/50">
           <span className="text-lg mt-0.5">🔬</span>
-          <p className="text-gray-400 text-xs leading-relaxed">
-            {result.science}
-          </p>
+          <div className="space-y-1">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
+              쉽게 말한 실행 습관
+            </p>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              {result.science}
+            </p>
+          </div>
         </div>
       </motion.div>
 
-      {/* Mini Challenge */}
       <MiniChallenge result={result} />
-
-      {/* Offer Card */}
       <OfferCard result={result} />
-
-      {/* Share */}
       <ShareButtons result={result} />
 
-      {/* Retry */}
       <div className="text-center pt-4 pb-8">
         <Link
           href="/"
           onClick={() => trackRetryQuiz(result.id)}
           className="text-gray-500 text-sm hover:text-white transition-colors underline underline-offset-4"
         >
-          테스트 다시 하고 친구 결과랑 비교하기
+          다시 해보고 친구 결과랑 비교해보기
         </Link>
       </div>
     </div>
@@ -69,7 +70,7 @@ export default function ResultPage() {
     <Suspense
       fallback={
         <div className="min-h-screen flex items-center justify-center">
-          <div className="text-gray-500">로딩 중...</div>
+          <div className="text-gray-500">결과 불러오는 중...</div>
         </div>
       }
     >
