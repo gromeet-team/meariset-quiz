@@ -1,0 +1,134 @@
+'use client';
+
+import { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
+
+const initialItems = [
+  { id: 'exercise', text: '운동', emoji: '🏋️' },
+  { id: 'netflix', text: '넷플릭스', emoji: '📺' },
+  { id: 'chicken', text: '치킨', emoji: '🍗' },
+  { id: 'sleep', text: '숙면', emoji: '😴' },
+];
+
+interface DragSortQuestionProps {
+  onAnswer: (score: number) => void;
+}
+
+export default function DragSortQuestion({ onAnswer }: DragSortQuestionProps) {
+  const [items, setItems] = useState(initialItems);
+  const [confirmed, setConfirmed] = useState(false);
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const dragItem = useRef<number | null>(null);
+  const dragOverItem = useRef<number | null>(null);
+
+  const handleDragStart = (index: number) => {
+    dragItem.current = index;
+    setDragIndex(index);
+  };
+
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    dragOverItem.current = index;
+  };
+
+  const handleDrop = () => {
+    if (dragItem.current === null || dragOverItem.current === null) return;
+    const newItems = [...items];
+    const draggedItem = newItems[dragItem.current];
+    newItems.splice(dragItem.current, 1);
+    newItems.splice(dragOverItem.current, 0, draggedItem);
+    setItems(newItems);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setDragIndex(null);
+  };
+
+  // Touch handling for mobile
+  const [touchDragIdx, setTouchDragIdx] = useState<number | null>(null);
+
+  const moveItem = (from: number, to: number) => {
+    if (to < 0 || to >= items.length) return;
+    const newItems = [...items];
+    const item = newItems[from];
+    newItems.splice(from, 1);
+    newItems.splice(to, 0, item);
+    setItems(newItems);
+    setTouchDragIdx(to);
+  };
+
+  const handleConfirm = () => {
+    if (confirmed) return;
+    setConfirmed(true);
+    const exercisePos = items.findIndex((item) => item.id === 'exercise');
+    const score = exercisePos + 1;
+    onAnswer(score);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+      className="space-y-6"
+    >
+      <h2 className="text-xl font-bold text-white text-center leading-relaxed">
+        지금 당장 하고 싶은<br />순서대로 배치!
+      </h2>
+
+      <p className="text-center text-gray-500 text-xs">
+        드래그하거나 화살표로 순서를 바꿔보세요
+      </p>
+
+      <div className="space-y-3">
+        {items.map((item, index) => (
+          <motion.div
+            key={item.id}
+            layout
+            draggable
+            onDragStart={() => handleDragStart(index)}
+            onDragOver={(e) => handleDragOver(e as unknown as React.DragEvent, index)}
+            onDragEnd={handleDrop}
+            className={`
+              flex items-center gap-4 p-4 rounded-2xl border-2 transition-all cursor-grab active:cursor-grabbing
+              ${
+                dragIndex === index || touchDragIdx === index
+                  ? 'border-white bg-white/10 scale-105'
+                  : 'border-gray-700 bg-gray-800/50'
+              }
+            `}
+          >
+            <span className="text-gray-500 text-sm font-bold w-6">{index + 1}</span>
+            <span className="text-3xl">{item.emoji}</span>
+            <span className="text-white font-medium flex-1">{item.text}</span>
+
+            {/* Mobile arrows */}
+            <div className="flex flex-col gap-1">
+              <button
+                onClick={() => moveItem(index, index - 1)}
+                disabled={index === 0}
+                className="text-gray-500 hover:text-white disabled:opacity-20 text-xs p-1"
+              >
+                ▲
+              </button>
+              <button
+                onClick={() => moveItem(index, index + 1)}
+                disabled={index === items.length - 1}
+                className="text-gray-500 hover:text-white disabled:opacity-20 text-xs p-1"
+              >
+                ▼
+              </button>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <button
+        onClick={handleConfirm}
+        disabled={confirmed}
+        className="w-full py-4 rounded-2xl font-bold text-lg transition-all active:scale-95 bg-white text-black hover:bg-gray-200 disabled:opacity-50"
+      >
+        이 순서로 확정
+      </button>
+    </motion.div>
+  );
+}
