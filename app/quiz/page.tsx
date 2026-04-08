@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence } from 'framer-motion';
 import { questions } from '@/data/questions';
-import { getResultType } from '@/data/results';
+import { analyzeAnswers, encodeAnswerCode } from '@/data/results';
 import { trackQuizStart, trackQuizComplete } from '@/lib/pixel';
 import ProgressBar from '@/components/Quiz/ProgressBar';
 import MicroFeedback from '@/components/Quiz/MicroFeedback';
@@ -56,9 +56,7 @@ export default function QuizPage() {
             if (currentIndex < questions.length - 1) {
               setCurrentIndex(currentIndex + 1);
             } else {
-              // All done - show loading
-              const totalScore = newAnswers.reduce((a, b) => a + b, 0);
-              const result = getResultType(totalScore);
+              const result = analyzeAnswers(newAnswers);
               trackQuizComplete(result.id);
               setIsLoading(true);
             }
@@ -68,8 +66,7 @@ export default function QuizPage() {
         if (currentIndex < questions.length - 1) {
           setCurrentIndex(currentIndex + 1);
         } else {
-          const totalScore = newAnswers.reduce((a, b) => a + b, 0);
-          const result = getResultType(totalScore);
+          const result = analyzeAnswers(newAnswers);
           trackQuizComplete(result.id);
           setIsLoading(true);
         }
@@ -85,9 +82,9 @@ export default function QuizPage() {
   };
 
   const handleLoadingComplete = useCallback(() => {
-    const totalScore = answers.reduce((a, b) => a + b, 0);
-    const result = getResultType(totalScore);
-    router.push(`/result?type=${result.id}`);
+    const result = analyzeAnswers(answers);
+    const code = encodeAnswerCode(answers);
+    router.push(`/result?type=${result.id}&code=${code}`);
   }, [answers, router]);
 
   if (isLoading) {
@@ -95,13 +92,13 @@ export default function QuizPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col px-6 py-8 max-w-lg mx-auto">
+    <div className="mx-auto flex min-h-screen max-w-lg flex-col px-6 py-8">
       {/* Back button */}
       <div className="mb-4">
         {currentIndex > 0 ? (
           <button
             onClick={handleBack}
-            className="text-gray-500 text-sm hover:text-white transition-colors"
+            className="text-sm text-white/55 transition-colors hover:text-white"
           >
             ← 이전
           </button>
@@ -112,7 +109,7 @@ export default function QuizPage() {
 
       <ProgressBar current={currentIndex + 1} total={questions.length} />
 
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex flex-1 flex-col justify-center">
         <AnimatePresence mode="wait">
           <div key={currentIndex}>
             {currentQuestion.type === 'slider' && (

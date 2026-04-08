@@ -1,88 +1,103 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ResultType } from '@/data/results';
+import type { QuizResult } from '@/data/results';
 
 interface TypeCardProps {
-  result: ResultType;
+  result: QuizResult;
 }
 
 export default function TypeCard({ result }: TypeCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.55 }}
       id="result-card"
-      className="relative overflow-hidden rounded-[32px] p-6 text-center shadow-2xl"
+      className="relative overflow-hidden rounded-[36px] border px-6 py-6 shadow-[0_20px_80px_rgba(0,0,0,0.35)]"
       style={{
-        background: `radial-gradient(circle at top, ${result.color}30, transparent 42%), linear-gradient(155deg, #181818 0%, #0f0f0f 50%, #080808 100%)`,
-        border: `1.5px solid ${result.color}45`,
+        borderColor: `${result.color}55`,
+        background: `radial-gradient(circle at top left, ${result.color}35, transparent 34%), linear-gradient(160deg, #1d1d1d 0%, #121212 55%, #0a0a0a 100%)`,
       }}
     >
       <div
-        className="pointer-events-none absolute inset-x-6 top-5 h-px opacity-80"
-        style={{ background: `linear-gradient(90deg, transparent, ${result.color}, transparent)` }}
+        className="pointer-events-none absolute -right-12 -top-10 h-40 w-40 rounded-full blur-3xl"
+        style={{ backgroundColor: `${result.color}35` }}
       />
       <div
-        className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full blur-3xl"
+        className="pointer-events-none absolute -bottom-16 -left-8 h-44 w-44 rounded-full blur-3xl"
         style={{ backgroundColor: `${result.color}20` }}
-      />
-      <div
-        className="pointer-events-none absolute -bottom-16 -left-10 h-36 w-36 rounded-full blur-3xl"
-        style={{ backgroundColor: `${result.color}18` }}
       />
 
       <div className="relative z-10">
-        <div className="mb-4 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-400">
-          <span>MEARISET QUIZ</span>
-          <span>{result.level}</span>
+        <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
+          <span>MEARISET PATTERN READOUT</span>
+          <span>{result.riskLevel}</span>
         </div>
 
-        <div
-          className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-[28px] border text-5xl backdrop-blur-sm"
-          style={{
-            backgroundColor: `${result.color}18`,
-            borderColor: `${result.color}45`,
-          }}
-        >
-          {result.emoji}
-        </div>
+        <div className="mt-5 flex items-start gap-4">
+          <div
+            className="flex h-20 w-20 shrink-0 items-center justify-center rounded-[28px] border text-5xl"
+            style={{
+              borderColor: `${result.color}55`,
+              backgroundColor: `${result.color}18`,
+            }}
+          >
+            {result.emoji}
+          </div>
 
-        <div
-          className="inline-flex rounded-full border px-3 py-1 text-[11px] font-bold"
-          style={{ borderColor: `${result.color}40`, color: result.color, backgroundColor: `${result.color}16` }}
-        >
-          {result.subtype}
-        </div>
-
-        <h2 className="mt-4 text-[28px] font-black leading-tight text-white">
-          {result.name}
-        </h2>
-        <p className="mt-3 text-base font-semibold leading-snug text-white/90">
-          {result.headline}
-        </p>
-        <p className="mt-3 text-sm leading-relaxed text-gray-300">
-          {result.description}
-        </p>
-
-        <div className="mt-5 grid grid-cols-[1fr_auto] gap-3 rounded-[24px] border border-white/10 bg-white/[0.04] px-4 py-4 text-left">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
-              왜 메아리셋이 잘 맞냐면
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-gray-100">
-              {result.bridge}
+          <div className="min-w-0 flex-1">
+            <div
+              className="inline-flex rounded-full border px-3 py-1 text-[11px] font-bold"
+              style={{
+                borderColor: `${result.color}55`,
+                backgroundColor: `${result.color}18`,
+                color: result.color,
+              }}
+            >
+              {result.subtype}
+            </div>
+            <h1 className="mt-3 text-[30px] font-black leading-[1.05] text-white">
+              {result.name}
+            </h1>
+            <p className="mt-2 text-sm leading-relaxed text-white/82">
+              {result.verdict}
             </p>
           </div>
-          <div
-            className="flex h-11 items-center rounded-full px-4 text-xs font-bold text-black"
-            style={{ backgroundColor: result.color }}
-          >
-            공유각
+        </div>
+
+        <div className="mt-6 rounded-[28px] border border-white/10 bg-black/25 p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">
+            캡처용 판결
+          </p>
+          <p className="mt-2 text-xl font-black leading-snug text-white">
+            {result.headline}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-white/70">
+            {result.roastLine}
+          </p>
+        </div>
+
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div className="rounded-[24px] border border-white/10 bg-white/[0.04] p-4">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">
+              지금 제일 도움 되는 팁
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-white/88">
+              {result.cardTip}
+            </p>
+          </div>
+
+          <div className="rounded-[24px] border border-white/10 bg-white/[0.04] p-4">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">
+              친구가 보면 반응 오는 포인트
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-white/88">
+              {result.compareCopy}
+            </p>
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.section>
   );
 }

@@ -1,34 +1,34 @@
 import { ImageResponse } from 'next/og';
-import { NextRequest } from 'next/server';
-import { getResultTypeById } from '@/data/results';
+import type { NextRequest } from 'next/server';
+import { buildResultFromCode } from '@/data/results';
 
 export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
   const type = request.nextUrl.searchParams.get('type');
-  const result = type ? getResultTypeById(type) : null;
+  const code = request.nextUrl.searchParams.get('code');
+  const result = buildResultFromCode(code, type);
 
   return new ImageResponse(
     (
       <div
         style={{
-          width: '1200px',
-          height: '630px',
+          width: 1200,
+          height: 630,
           display: 'flex',
           position: 'relative',
           overflow: 'hidden',
-          background: '#080808',
-          fontFamily: 'sans-serif',
+          background:
+            'linear-gradient(160deg, #1d1d1d 0%, #111111 50%, #090909 100%)',
           color: 'white',
+          fontFamily: 'sans-serif',
         }}
       >
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            background: result
-              ? `radial-gradient(circle at 20% 20%, ${result.color}55, transparent 35%), radial-gradient(circle at 85% 80%, ${result.color}30, transparent 30%), linear-gradient(155deg, #181818 0%, #0d0d0d 60%, #050505 100%)`
-              : 'linear-gradient(155deg, #181818 0%, #0d0d0d 60%, #050505 100%)',
+            background: `radial-gradient(circle at 18% 18%, ${result.color}44, transparent 34%), radial-gradient(circle at 82% 24%, rgba(255,255,255,0.12), transparent 24%), radial-gradient(circle at 80% 85%, ${result.color}22, transparent 22%)`,
           }}
         />
 
@@ -39,140 +39,137 @@ export async function GET(request: NextRequest) {
             display: 'flex',
             width: '100%',
             height: '100%',
-            padding: '56px',
+            padding: '52px',
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', fontSize: 24, color: '#d4d4d4', letterSpacing: 2 }}>
-              MEARISET QUIZ
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                padding: '10px 18px',
-                borderRadius: 999,
-                background: 'rgba(255,255,255,0.08)',
-                fontSize: 18,
-                color: '#f5f5f5',
-              }}
-            >
-              결과 카드
-            </div>
-          </div>
-
-          {result ? (
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  width: 124,
-                  height: 124,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 32,
-                  background: `${result.color}22`,
-                  border: `2px solid ${result.color}55`,
-                  fontSize: 72,
-                  marginBottom: 28,
-                }}
-              >
-                {result.emoji}
-              </div>
-
-              <div
-                style={{
-                  display: 'flex',
-                  alignSelf: 'flex-start',
-                  padding: '10px 18px',
-                  borderRadius: 999,
-                  background: `${result.color}18`,
-                  border: `1px solid ${result.color}55`,
-                  color: result.color,
-                  fontSize: 24,
-                  fontWeight: 700,
-                  marginBottom: 22,
-                }}
-              >
-                {result.subtype}
-              </div>
-
-              <div style={{ display: 'flex', fontSize: 64, fontWeight: 800, lineHeight: 1.1 }}>
-                {result.name}
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  maxWidth: 960,
-                  marginTop: 18,
-                  fontSize: 30,
-                  color: '#f1f1f1',
-                  lineHeight: 1.35,
-                }}
-              >
-                {result.headline}
-              </div>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', fontSize: 84, marginBottom: 28 }}>🧠</div>
-              <div style={{ display: 'flex', fontSize: 64, fontWeight: 800, lineHeight: 1.1 }}>
-                내 의지박약
-                <br />
-                레벨 테스트
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  maxWidth: 840,
-                  marginTop: 18,
-                  fontSize: 30,
-                  color: '#d4d4d4',
-                  lineHeight: 1.35,
-                }}
-              >
-                알람, 미루기, 기록 습관으로 보는 내 실행 패턴
-              </div>
-            </div>
-          )}
-
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              padding: '24px 28px',
-              borderRadius: 28,
-              border: '1px solid rgba(255,255,255,0.08)',
-              background: 'rgba(255,255,255,0.05)',
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', fontSize: 18, color: '#a3a3a3', marginBottom: 6 }}>
-                친구랑 비교해보면 더 재밌는 유형 테스트
-              </div>
-              <div style={{ display: 'flex', fontSize: 28, color: '#ffffff', fontWeight: 700 }}>
-                메아리셋으로 이어지는 실행 패턴 진단
-              </div>
+            <div style={{ display: 'flex', fontSize: 22, letterSpacing: 3, color: '#c8c8c8' }}>
+              MEARISET PATTERN TEST
             </div>
             <div
               style={{
                 display: 'flex',
-                padding: '14px 22px',
                 borderRadius: 999,
-                background: result?.color ?? '#FEE500',
-                color: '#000',
-                fontWeight: 800,
-                fontSize: 20,
+                border: '1px solid rgba(255,255,255,0.14)',
+                padding: '10px 16px',
+                fontSize: 18,
+                color: '#f5f5f5',
+                background: 'rgba(255,255,255,0.05)',
               }}
             >
-              공유각 완료
+              {result.riskLevel}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 970 }}>
+            <div
+              style={{
+                display: 'flex',
+                width: 128,
+                height: 128,
+                borderRadius: 34,
+                border: `2px solid ${result.color}66`,
+                background: `${result.color}18`,
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 76,
+                marginBottom: 26,
+              }}
+            >
+              {result.emoji}
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                alignSelf: 'flex-start',
+                borderRadius: 999,
+                padding: '10px 18px',
+                border: `1px solid ${result.color}55`,
+                background: `${result.color}18`,
+                color: result.color,
+                fontWeight: 700,
+                fontSize: 22,
+                marginBottom: 18,
+              }}
+            >
+              {result.subtype}
+            </div>
+
+            <div style={{ display: 'flex', fontSize: 62, fontWeight: 800, lineHeight: 1.05 }}>
+              {result.name}
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                marginTop: 18,
+                fontSize: 30,
+                lineHeight: 1.3,
+                color: '#f1f1f1',
+              }}
+            >
+              {result.verdict}
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              gap: 18,
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                flexDirection: 'column',
+                borderRadius: 28,
+                border: '1px solid rgba(255,255,255,0.09)',
+                background: 'rgba(255,255,255,0.05)',
+                padding: '24px',
+              }}
+            >
+              <div style={{ display: 'flex', fontSize: 18, color: '#9ca3af', marginBottom: 8 }}>
+                캡처 포인트
+              </div>
+              <div style={{ display: 'flex', fontSize: 28, fontWeight: 700, lineHeight: 1.3 }}>
+                {result.cardTip}
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                flexDirection: 'column',
+                borderRadius: 28,
+                border: '1px solid rgba(255,255,255,0.09)',
+                background: 'rgba(255,255,255,0.05)',
+                padding: '24px',
+              }}
+            >
+              <div style={{ display: 'flex', fontSize: 18, color: '#9ca3af', marginBottom: 8 }}>
+                친구 반응 포인트
+              </div>
+              <div style={{ display: 'flex', fontSize: 28, fontWeight: 700, lineHeight: 1.3 }}>
+                {result.compareCopy}
+              </div>
             </div>
           </div>
         </div>
       </div>
     ),
-    { width: 1200, height: 630 }
+    {
+      width: 1200,
+      height: 630,
+    }
   );
 }

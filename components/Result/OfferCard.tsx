@@ -1,55 +1,61 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ResultType } from '@/data/results';
+import type { QuizResult } from '@/data/results';
 import { trackOfferClick } from '@/lib/pixel';
 
 interface OfferCardProps {
-  result: ResultType;
+  result: QuizResult;
 }
 
 export default function OfferCard({ result }: OfferCardProps) {
   const handleClick = () => {
     trackOfferClick();
-    window.open(result.offerLink, '_blank');
+    window.open(result.offerLink, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.6 }}
-      className="rounded-2xl border border-gray-700 bg-gray-800/50 p-6 space-y-4"
+      transition={{ delay: 0.38 }}
+      className="rounded-[30px] border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.02] p-5"
     >
-      <div className="text-center">
-        <p className="text-gray-400 text-xs mb-1">이 유형이 편하게 시작하기 좋은 메아리셋</p>
-        <h3 className="text-white text-lg font-bold">
-          {result.offerTitle}
-        </h3>
-        <p className="text-2xl font-bold mt-2" style={{ color: result.color }}>
-          {result.offerPrice}
+      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">
+        메아리셋이 실제로 도움 되는 이유
+      </p>
+      <h3 className="mt-2 text-xl font-black text-white">
+        {result.offerTitle}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-white/75">
+        {result.offerFit}
+      </p>
+
+      <div className="mt-4 rounded-[24px] border border-white/10 bg-black/20 p-4">
+        <p className="text-sm leading-relaxed text-white/88">
+          {result.bestEnvironment}
         </p>
-        <p className="text-yellow-400 text-xs mt-1">
-          🏷️ 지금 시작하면 3,000원 할인
+        <p className="mt-2 text-xs leading-relaxed text-white/45">
+          메아리셋은 다짐을 세게 만드는 도구보다, 다시 붙기 쉬운 하루 구조를 만드는 쪽에 가깝습니다.
         </p>
       </div>
 
-      <div className="rounded-2xl bg-black/20 px-4 py-3 space-y-2">
-        <p className="text-xs leading-relaxed text-gray-300">
-          {result.offerFit}
-        </p>
-        <p className="text-[11px] leading-relaxed text-gray-500">
-          메아리셋은 잘 써야 하는 플래너보다, 다시 시작하기 쉽게 만든 플래너에 가까워요.
-        </p>
-      </div>
+      <div className="mt-4 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-xs text-white/45">현재 추천 구성</p>
+          <p className="mt-1 text-2xl font-black" style={{ color: result.color }}>
+            {result.offerPrice}
+          </p>
+        </div>
 
-      <button
-        onClick={handleClick}
-        className="w-full py-4 rounded-2xl font-bold text-lg transition-all active:scale-95"
-        style={{ backgroundColor: result.color, color: '#fff' }}
-      >
-        {result.ctaLabel}
-      </button>
-    </motion.div>
+        <button
+          onClick={handleClick}
+          className="rounded-[22px] px-5 py-4 text-sm font-black text-black transition-transform active:scale-[0.98]"
+          style={{ backgroundColor: result.color }}
+        >
+          {result.ctaLabel}
+        </button>
+      </div>
+    </motion.section>
   );
 }

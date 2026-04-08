@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import ResultPageClient from '@/components/Result/ResultPageClient';
-import { getResultTypeById } from '@/data/results';
+import { buildResultFromCode } from '@/data/results';
 
 type ResultSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -9,15 +9,23 @@ function getTypeId(searchParams: Awaited<ResultSearchParams>) {
   return typeof type === 'string' ? type : null;
 }
 
+function getCode(searchParams: Awaited<ResultSearchParams>) {
+  const code = searchParams.code;
+  return typeof code === 'string' ? code : null;
+}
+
 export async function generateMetadata({
   searchParams,
 }: {
   searchParams: ResultSearchParams;
 }): Promise<Metadata> {
   const resolvedSearchParams = await searchParams;
-  const result = getResultTypeById(getTypeId(resolvedSearchParams));
-  const title = `${result.name} | 메아리셋 결과`;
-  const description = `${result.subtype} · ${result.headline}`;
+  const result = buildResultFromCode(
+    getCode(resolvedSearchParams),
+    getTypeId(resolvedSearchParams)
+  );
+  const title = `${result.name} | 메아리셋 실행패턴 결과`;
+  const description = `${result.verdict} · ${result.cardTip}`;
 
   return {
     title,
@@ -26,13 +34,13 @@ export async function generateMetadata({
       title,
       description,
       type: 'website',
-      images: [`/api/og?type=${result.id}`],
+      images: [`/api/og?type=${result.id}&code=${result.scoreCode}`],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [`/api/og?type=${result.id}`],
+      images: [`/api/og?type=${result.id}&code=${result.scoreCode}`],
     },
   };
 }
@@ -43,7 +51,10 @@ export default async function ResultPage({
   searchParams: ResultSearchParams;
 }) {
   const resolvedSearchParams = await searchParams;
-  const result = getResultTypeById(getTypeId(resolvedSearchParams));
+  const result = buildResultFromCode(
+    getCode(resolvedSearchParams),
+    getTypeId(resolvedSearchParams)
+  );
 
   return <ResultPageClient result={result} />;
 }

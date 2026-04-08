@@ -5,18 +5,18 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://meariset-quiz.vercel.app'),
-  title: '나의 의지박약 레벨 테스트 | 메아리셋',
-  description: '알람·미루기·기록 습관으로 보는 당신의 실행 패턴. 결과와 함께 메아리셋 맞춤 구조까지 확인해보세요.',
+  title: '왜 시작 직전에 무너지는지 까발리는 테스트 | 메아리셋',
+  description: '캡처하고 싶은 실행패턴 결과, 친구에게 던질 비교 문구, 오늘 바로 써먹는 처방까지 한 번에 보는 메아리셋 테스트.',
   openGraph: {
-    title: '나의 의지박약 레벨 테스트',
-    description: '알람·미루기·기록 습관으로 보는 당신의 실행 패턴',
+    title: '왜 시작 직전에 무너지는지 까발리는 테스트',
+    description: '웃기기만 하지 않고, 실제로 도움 되는 실행패턴 결과 카드',
     images: ['/api/og'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: '나의 의지박약 레벨 테스트',
-    description: '알람·미루기·기록 습관으로 보는 당신의 실행 패턴',
+    title: '왜 시작 직전에 무너지는지 까발리는 테스트',
+    description: '웃기기만 하지 않고, 실제로 도움 되는 실행패턴 결과 카드',
     images: ['/api/og'],
   },
 };

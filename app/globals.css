@@ -1,16 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --background: #111111;
-  --foreground: #ededed;
+  --background: #0c0c0c;
+  --foreground: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(255, 118, 35, 0.14), transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(93, 196, 221, 0.12), transparent 25%),
+    linear-gradient(180deg, #171717 0%, #0c0c0c 100%);
 }
 
 body {
-  background: var(--background);
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
   color: var(--foreground);
 }
 
-/* Slider styling */
+main {
+  min-height: 100vh;
+  background: transparent;
+}
+
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
@@ -24,33 +47,22 @@ input[type='range']::-webkit-slider-thumb {
   appearance: none;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
-  background: white;
+  border-radius: 9999px;
+  background: #fff7ed;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 input[type='range']::-moz-range-thumb {
   width: 28px;
   height: 28px;
-  border-radius: 50%;
-  background: white;
-  cursor: pointer;
   border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 9999px;
+  background: #fff7ed;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  display: none;
-}
-
-* {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Selection */
 ::selection {
   background: rgba(255, 255, 255, 0.2);
 }
