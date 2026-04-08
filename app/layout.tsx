@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import MetaPixel from '@/components/common/MetaPixel';
 import './globals.css';
 
@@ -39,6 +40,10 @@ export default function RootLayout({
         className="antialiased"
         style={{ fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif' }}
       >
+        <Script
+          src="https://developers.kakao.com/sdk/js/kakao.min.js"
+          strategy="afterInteractive"
+        />
         <MetaPixel />
         <main className="min-h-screen bg-[#111]">
           {children}

@@ -56,6 +56,18 @@ export function trackSaveImage(typeId: string) {
   trackCustomEvent('SaveImage', { type_id: typeId });
 }
 
+export function trackKakaoShare(typeId: string) {
+  trackCustomEvent('KakaoShare', { type_id: typeId });
+}
+
+export function trackCompareClick(typeId: string) {
+  trackCustomEvent('CompareClick', { type_id: typeId });
+}
+
+export function trackShareRewardReveal(typeId: string, trigger: string) {
+  trackCustomEvent('ShareRewardReveal', { type_id: typeId, trigger });
+}
+
 export function trackRetryQuiz(typeId: string) {
   trackCustomEvent('RetryQuiz', { type_id: typeId });
 }
