@@ -7,106 +7,125 @@ interface HomeClientProps {
   isCompareMode: boolean;
 }
 
-const proofItems = [
-  '결과 한 줄만 캡처해도 반응 오는 타입',
-  '웃기기만 하지 않고 실제 패턴 처방까지 제공',
-  '친구한테 바로 던질 비교 문구 포함',
-];
-
 export default function HomeClient({ isCompareMode }: HomeClientProps) {
   const router = useRouter();
 
   return (
-    <div className="relative overflow-hidden px-6 py-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,122,0,0.22),_transparent_30%),radial-gradient(circle_at_80%_25%,_rgba(109,186,87,0.18),_transparent_24%),linear-gradient(180deg,_#171717_0%,_#0c0c0c_100%)]" />
+    <div className="relative overflow-hidden px-4 pb-10 pt-5 sm:px-6">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,122,0,0.3),_transparent_28%),radial-gradient(circle_at_84%_18%,_rgba(109,186,87,0.14),_transparent_20%),radial-gradient(circle_at_50%_68%,_rgba(255,255,255,0.06),_transparent_36%),linear-gradient(180deg,_rgba(255,255,255,0.04)_0%,_transparent_28%),linear-gradient(180deg,_#171717_0%,_#090909_100%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10" />
 
       <div className="relative mx-auto flex min-h-screen max-w-xl flex-col justify-center">
+        <motion.div
+          aria-hidden
+          animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
+          transition={{ duration: 5.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="home-float pointer-events-none absolute left-0 top-18 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[11px] font-semibold text-white/55"
+        >
+          눌렀다가 공감
+        </motion.div>
+        <motion.div
+          aria-hidden
+          animate={{ y: [0, 9, 0], x: [0, -4, 0] }}
+          transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+          className="home-float pointer-events-none absolute right-2 top-30 rounded-full border border-[#FEE500]/20 bg-[#FEE500]/10 px-3 py-1 text-[11px] font-semibold text-[#FEE500]"
+        >
+          친구한테 보내기 좋음
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
-          className="rounded-[40px] border border-white/10 bg-black/20 p-6 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm"
+          className="rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] px-5 py-6 shadow-[0_28px_100px_rgba(0,0,0,0.4)] backdrop-blur-md sm:px-6 sm:py-7"
         >
           <div className="flex items-center justify-between gap-3">
-            <div className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/55">
-              meariset viral rebuild
+            <div className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/62">
+              playful test
             </div>
-            <div className="text-4xl">🧠</div>
+            <div className="flex items-center gap-2 rounded-full border border-[#FFB27A]/20 bg-[#FFB27A]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#FFB27A]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FFB27A]" />
+              meariset
+            </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-8">
             <p className="text-sm font-semibold text-[#FFB27A]">
-              {isCompareMode ? '친구랑 바로 붙는 모드' : '왜 시작 직전에 무너지는지 까발리는 테스트'}
+              {isCompareMode ? '같이 하면 더 잘 놀릴 수 있는 비교 버전' : '시작 직전에 새는 사람용 미루기 테스트'}
             </p>
-            <h1 className="mt-3 text-[38px] font-black leading-[0.96] text-white">
+            <h1 className="mt-3 text-[42px] font-black leading-[0.86] tracking-[-0.07em] text-white sm:text-[54px]">
               {isCompareMode
-                ? '누가 더 미루는지 말고, 왜 그렇게 되는지 비교합니다'
-                : '의지박약이 아니라 내 실행패턴이 문제였는지 확인하세요'}
+                ? '누가 더 미루는지 말고 왜 그렇게 미루는지 바로 비교'
+                : '의지박약 말고 내 미루기 캐릭터부터 보자'}
             </h1>
-            <p className="mt-4 text-base leading-relaxed text-white/72">
+            <p className="mt-4 max-w-[26rem] text-[15px] leading-relaxed text-white/70 sm:text-base">
               {isCompareMode
-                ? '같은 7문항인데도 결과가 꽤 다르게 갈립니다. 친구 결과까지 오면 바로 비교하고 놀리기 좋은 판결이 나옵니다.'
-                : '테스트 끝나면 “이거 완전 나다” 싶은 별명, 망하는 트리거, 오늘 바로 써먹는 처방, 캡처용 카드까지 한 번에 나옵니다.'}
-            </p>
-          </div>
-
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-[24px] border border-white/10 bg-white/[0.04] p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">문항</p>
-              <p className="mt-2 text-2xl font-black text-white">7개</p>
-              <p className="mt-1 text-xs text-white/55">2분 안쪽</p>
-            </div>
-            <div className="rounded-[24px] border border-white/10 bg-white/[0.04] p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">결과</p>
-              <p className="mt-2 text-2xl font-black text-white">6개</p>
-              <p className="mt-1 text-xs text-white/55">행동 프로필</p>
-            </div>
-            <div className="rounded-[24px] border border-white/10 bg-white/[0.04] p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">산출물</p>
-              <p className="mt-2 text-2xl font-black text-white">캡처각</p>
-              <p className="mt-1 text-xs text-white/55">공유용 카드 제공</p>
-            </div>
-          </div>
-
-          <div className="mt-6 rounded-[28px] border border-white/10 bg-white/[0.05] p-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
-              왜 이 버전이 더 재밌냐면
-            </p>
-            <div className="mt-3 space-y-2">
-              {proofItems.map((item) => (
-                <p key={item} className="text-sm leading-relaxed text-white/80">
-                  • {item}
-                </p>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6 rounded-[28px] border border-[#FEE500]/20 bg-[#FEE500]/10 p-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#FEE500]">
-              미리 보는 결과 톤
-            </p>
-            <p className="mt-2 text-lg font-black leading-snug text-white">
-              “결심은 블록버스터인데 첫 장면 촬영이 맨날 밀립니다.”
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-white/72">
-              이런 식으로 웃기면서도, 왜 그러는지와 오늘 뭘 바꾸면 되는지까지 같이 보여줍니다.
+                ? '같은 질문을 풀어도 결과 톤이 꽤 다릅니다. 풀자마자 비교 포인트가 튀어나옵니다.'
+                : '읽는 화면 말고 누르는 화면으로 줄였습니다. 바로 풀고 별명 하나부터 확인하면 됩니다.'}
             </p>
           </div>
 
           <motion.button
             whileTap={{ scale: 0.985 }}
-            whileHover={{ scale: 1.01 }}
+            whileHover={{ scale: 1.012 }}
             onClick={() => router.push('/quiz')}
-            className="mt-6 w-full rounded-[26px] bg-white px-5 py-5 text-lg font-black text-black transition-transform"
+            className="home-pulse mt-7 flex w-full items-center justify-between rounded-[26px] bg-white px-5 py-5 text-left text-black transition-transform"
           >
-            {isCompareMode ? '친구랑 비교 결과 받기' : '내 실행패턴 까보기'}
+            <span>
+              <span className="block text-[18px] font-black">
+                {isCompareMode ? '친구랑 바로 시작하기' : '지금 바로 테스트 시작'}
+              </span>
+              <span className="mt-1 block text-[12px] font-semibold text-black/58">7문항 · 2분 컷 · 결과 저장 가능</span>
+            </span>
+            <span className="rounded-full bg-black px-3 py-2 text-[12px] font-black uppercase tracking-[0.18em] text-white">
+              Tap
+            </span>
           </motion.button>
-
-          <p className="mt-4 text-center text-xs leading-relaxed text-white/35">
-            by 메아리셋
-            <br />
-            의지를 탓하기 전에 구조부터 바꾸는 사람들을 위한 90일 리셋 플래너
+          <p className="mt-3 text-center text-[12px] font-medium text-white/44">
+            {isCompareMode ? '둘 다 끝나면 바로 비교 톤이 뜹니다.' : '끝나면 별명, 트리거, 오늘의 한 가지가 바로 뜹니다.'}
           </p>
+
+          <div className="mt-6 space-y-3">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.12 }}
+              className="overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,178,122,0.2),rgba(255,255,255,0.05))] p-4"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">sample result</p>
+                <div className="rounded-full bg-black/25 px-3 py-1 text-[11px] font-semibold text-white/72">공감형</div>
+              </div>
+              <div className="mt-3 rounded-[22px] bg-black/18 px-4 py-4">
+                <p className="text-[23px] font-black leading-[1.04] tracking-[-0.05em] text-white">
+                  “결심은 큰데
+                  <br />
+                  첫 버튼 앞에서 자꾸 샌다”
+                </p>
+                <div className="mt-3 flex items-center gap-2 text-[12px] font-semibold text-white/64">
+                  <span className="rounded-full bg-white/10 px-2.5 py-1 text-white/78">오늘의 한 가지</span>
+                  <span>시작 조건부터 10초 안에 줄이기</span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.2 }}
+              className="flex items-center justify-between gap-3 rounded-[22px] border border-white/10 bg-white/[0.04] px-4 py-3.5"
+            >
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/42">mood</p>
+                <p className="mt-1 text-sm font-semibold text-white/82">
+                  {isCompareMode ? '비교하면서 웃기고 공감되는 테스트' : '가볍게 눌렀다가 꽤 정확하게 꽂히는 테스트'}
+                </p>
+              </div>
+              <div className="rounded-full border border-white/10 bg-black/20 px-3 py-2 text-[11px] font-semibold text-white/72">
+                저장각 결과
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </div>
