@@ -4,7 +4,7 @@ declare global {
   }
 }
 
-export const PIXEL_ID = '1262145439178127';
+export const PIXEL_ID = '2843301426001717';
 
 export function trackEvent(
   eventName: string,
