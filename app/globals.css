@@ -1,68 +1,513 @@
 @import "tailwindcss";
 
+/* ============================================
+   메아리셋 90일 패턴 진단 — Global Styles
+   ============================================ */
+
 :root {
-  --background: #0c0c0c;
-  --foreground: #f5f5f5;
+  --bg: #FAF7F2;
+  --bg-soft: #F2EDE3;
+  --ink: #2C3639;
+  --ink-soft: #5C6B6F;
+  --line: #E5DDCD;
+  --sage: #6B8A6E;
+  --sage-deep: #4F6B53;
+  --gold: #C4A881;
+  --rabbit: #E8B5B5;
+  --sheep: #C9D6E0;
+  --squirrel: #D4A574;
+  --bear: #A89478;
 }
 
 * {
   box-sizing: border-box;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-*::-webkit-scrollbar {
-  display: none;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-  background:
-    radial-gradient(circle at top, rgba(255, 118, 35, 0.14), transparent 30%),
-    radial-gradient(circle at 80% 20%, rgba(93, 196, 221, 0.12), transparent 25%),
-    linear-gradient(180deg, #171717 0%, #0c0c0c 100%);
+  background: var(--bg);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: transparent;
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-main {
+/* ============================================
+   Quiz App Layout
+   ============================================ */
+
+.app {
   min-height: 100vh;
-  background: transparent;
+  background: var(--bg);
 }
 
-input[type='range'] {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 12px;
-  border-radius: 9999px;
-  outline: none;
+.scene {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
-input[type='range']::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 9999px;
-  background: #fff7ed;
-  cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+.scene.active {
+  display: flex;
+  flex-direction: column;
 }
 
-input[type='range']::-moz-range-thumb {
-  width: 28px;
-  height: 28px;
+/* ============================================
+   Landing
+   ============================================ */
+
+.landing-badge {
+  display: inline-block;
+  background: var(--sage);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  align-self: flex-start;
+}
+
+.landing-title {
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+
+.landing-title em {
+  font-style: normal;
+  color: var(--sage);
+}
+
+.landing-sub {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+
+.landing-meta {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.meta-item span:first-child {
+  font-size: 16px;
+}
+
+/* ============================================
+   Story Strip (Social Proof)
+   ============================================ */
+
+.story-strip {
+  margin-bottom: 32px;
+}
+
+.strip-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.strip-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.strip-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.strip-scroll img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   CTA Button
+   ============================================ */
+
+.btn-cta {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  background: var(--sage);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
   border: none;
-  border-radius: 9999px;
-  background: #fff7ed;
+  border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  letter-spacing: -0.01em;
+  transition: background 0.2s, transform 0.15s;
 }
 
-::selection {
-  background: rgba(255, 255, 255, 0.2);
+.btn-cta:hover {
+  background: var(--sage-deep);
+}
+
+.btn-cta:active {
+  transform: scale(0.98);
+}
+
+.landing-cta {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.cta-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: 10px;
+  opacity: 0.7;
+}
+
+/* ============================================
+   Quiz Scene
+   ============================================ */
+
+.quiz-header {
+  margin-bottom: 32px;
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--sage);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.question-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 12px;
+}
+
+.question-text {
+  font-size: clamp(18px, 5vw, 22px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.option-btn {
+  width: 100%;
+  padding: 16px 18px;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  font-size: 15px;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.5;
+  transition: border-color 0.2s, background 0.2s, transform 0.1s;
+  font-family: inherit;
+}
+
+.option-btn:hover {
+  border-color: var(--sage);
+  background: #F5F9F5;
+}
+
+.option-btn:active {
+  transform: scale(0.99);
+}
+
+.option-btn.selected {
+  border-color: var(--sage);
+  background: #EBF2EB;
+  font-weight: 600;
+}
+
+/* ============================================
+   Loading Scene
+   ============================================ */
+
+.loading-scene {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.loading-animal {
+  font-size: 56px;
+  margin-bottom: 24px;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.loading-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.loading-sub {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+/* ============================================
+   Result Scene
+   ============================================ */
+
+.result-scene {
+  padding-bottom: 60px;
+}
+
+.result-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  align-self: flex-start;
+}
+
+.result-animal-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.result-type-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.result-title {
+  font-size: clamp(22px, 6vw, 28px);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.result-tagline {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.result-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 24px 0;
+}
+
+.result-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+.result-description {
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.result-traits {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.trait-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.trait-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.result-prescription {
+  background: #F5F9F5;
+  border: 1px solid #D4E5D4;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.prescription-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.55;
+  padding: 6px 0;
+}
+
+.prescription-item + .prescription-item {
+  border-top: 1px solid #E2EFE2;
+}
+
+.prescription-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.result-share-area {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s, transform 0.15s;
+  font-family: inherit;
+}
+
+.btn-share:active {
+  transform: scale(0.98);
+}
+
+.btn-kakao {
+  background: #FEE500;
+  color: #3C1E1E;
+}
+
+.btn-copy {
+  background: var(--bg-soft);
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+}
+
+.btn-retry {
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 14px;
+  padding: 10px;
+}
+
+/* ============================================
+   Toast
+   ============================================ */
+
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  white-space: nowrap;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
